@@ -36,8 +36,8 @@ class _HomeState extends State<Home> {
         }
       });
     }
-    print(_startDate);
-    print(_endDate);
+    // print(_startDate);
+    // print(_endDate);
   }
 
   @override
@@ -68,12 +68,11 @@ class _HomeState extends State<Home> {
               onChanged: (String? newValue) {
                 setState(() {
                   _selectedCrop = newValue;
-                  if (_selectedCrop == 'Rice' || _selectedCrop == 'Maize') {
+                  if (_selectedCrop == 'Rice' ||
+                      _selectedCrop == 'Maize' ||
+                      _selectedCrop == 'Cotton') {
                     _baseTempController.text = '10';
                     _baseTemp = double.tryParse('10');
-                  } else if (_selectedCrop == 'Cotton') {
-                    _baseTempController.text = '15';
-                    _baseTemp = double.tryParse('15');
                   } else {
                     _baseTempController.text = '5';
                     _baseTemp = double.tryParse('5');
@@ -142,9 +141,9 @@ class _HomeState extends State<Home> {
             ElevatedButton(
               onPressed: () {
                 if (_baseTemp != null) {
-                  print("Passed data");
-                  print(_startDate);
-                  print(_endDate);
+                  // print("Passed data");
+                  // print(_startDate);
+                  // print(_endDate);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
