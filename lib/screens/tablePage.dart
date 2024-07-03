@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
@@ -29,6 +27,7 @@ class _TablePageState extends State<TablePage> {
   static const int _rowsPerPage = 10;
   List<Map<String, dynamic>>? _maxTemperatureData;
   List<Map<String, dynamic>>? _minTemperatureData;
+  Map<String, dynamic>? _cropStages;
 
   @override
   void initState() {
@@ -45,6 +44,12 @@ class _TablePageState extends State<TablePage> {
         _dataRows = _generateDataRows();
       });
     });
+    _loadCropStages().then((data) {
+      setState(() {
+        _cropStages = data;
+        _dataRows = _generateDataRows(); // Move _generateDataRows here
+      });
+    });
   }
 
   Future<List<Map<String, dynamic>>> _loadTemperatureData() async {
@@ -59,10 +64,20 @@ class _TablePageState extends State<TablePage> {
     return List<Map<String, dynamic>>.from(jsonDecode(jsonString));
   }
 
+  Future<Map<String, dynamic>> _loadCropStages() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/crop_stages.json');
+    return Map<String, dynamic>.from(jsonDecode(jsonString));
+  }
+
   List<DataRow> _generateDataRows() {
-    if (_minTemperatureData == null || _maxTemperatureData == null) {
+    if (_minTemperatureData == null ||
+        _maxTemperatureData == null ||
+        _cropStages == null) {
+      // Check if _cropStages is null
       return [];
     }
+
     List<DataRow> rows = [];
     int sNo = 1;
     DateTime currentDate = widget.startDate;
@@ -72,14 +87,6 @@ class _TablePageState extends State<TablePage> {
         currentDate.isAtSameMomentAs(widget.endDate)) {
       int dayOfYear = int.parse(DateFormat('D').format(currentDate));
       String yearKey = currentDate.year.toString();
-
-      // Skip February 29 for non-leap years
-      // if (currentDate.month == 2 &&
-      //     currentDate.day == 29 &&
-      //     !isLeapYear(currentDate.year)) {
-      //   currentDate = currentDate.add(Duration(days: 1));
-      //   continue;
-      // }
 
       if (dayOfYear - 1 >= _minTemperatureData!.length ||
           _minTemperatureData![dayOfYear - 1][yearKey] == null) {
@@ -100,6 +107,21 @@ class _TablePageState extends State<TablePage> {
       }
       cumulativeGDD += dailyGDD;
 
+      String currentStage = 'Sowing';
+      if (_cropStages!.containsKey(widget.crop)) {
+        Map<String, dynamic> stages = _cropStages![widget.crop];
+        List<double> stageKeys =
+            stages.keys.map((key) => double.parse(key)).toList();
+        stageKeys.sort((a, b) => b.compareTo(a));
+        print(stageKeys);
+        for (double key in stageKeys) {
+          if (cumulativeGDD > key) {
+            currentStage = stages[(key.toInt()).toString()] ?? 'N/A';
+            break;
+          }
+        }
+      }
+
       rows.add(DataRow(cells: [
         DataCell(Text(sNo.toString(), style: TextStyle(fontSize: 15))),
         DataCell(Text(
@@ -112,6 +134,7 @@ class _TablePageState extends State<TablePage> {
             Text(dailyGDD.toStringAsFixed(1), style: TextStyle(fontSize: 15))),
         DataCell(Text(cumulativeGDD.toStringAsFixed(1),
             style: TextStyle(fontSize: 15))),
+        DataCell(Text(currentStage, style: TextStyle(fontSize: 15))),
       ]));
 
       sNo++;
@@ -187,6 +210,12 @@ class _TablePageState extends State<TablePage> {
                   DataColumn(
                     label: Text(
                       'Cumulative GDD',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
+                      'Current Stage',
                       style: TextStyle(fontSize: 15),
                     ),
                   ),

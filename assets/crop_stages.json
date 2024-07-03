@@ -1,0 +1,57 @@
+{
+    "Cotton": {
+        "93": "Emergence",
+        "1110": "50% Squaring",
+        "1429": "50% Flowering",
+        "1952": "50% Boll formation",
+        "2401": "50% Boll opening",
+        "2627": "Phy. Mat."
+    },
+    "Rice": {
+        "954": "Start Tillering",
+        "1629": "Maximum Tillering",
+        "2197": "Booting",
+        "2289": "Panicle Initiation",
+        "2373": "Anthesis",
+        "2459": "Grain Filling (start)",
+        "2745": "Grain Filling (end)",
+        "2820": "Physiological Maturity"
+    },
+    "Brassica": {
+        "60": "Start emergence",
+        "98": "Complete emergence",
+        "617": "Start flowering",
+        "735": "Start pod formation",
+        "832": "Start pod filling",
+        "1579": "Physiological maturity"
+    },
+    "Maize": {
+        "121": "Start emergence",
+        "188": "Complete emergence",
+        "768": "Knee high",
+        "1206": "Tasseling start",
+        "1219": "Tasseling complete",
+        "1304": "Silking",
+        "1322": "Anthesis",
+        "1482": "Milking",
+        "1764": "Hard dough",
+        "1890": "Physiological maturity"
+    },
+    "Wheat": {
+        "14": "Sowing",
+        "104": "Start Emergence",
+        "162": "Complete Emergence",
+        "306": "CRI",
+        "391": "Start Tillering",
+        "517": "Maximum Tillering",
+        "719": "Jointing",
+        "803": "Flag Leaf Stage",
+        "903": "Booting",
+        "1024": "Heading",
+        "1201": "Anthesis",
+        "1390": "Milking",
+        "1538": "Soft dough",
+        "1655": "Hard dough",
+        "1809": "Phy. Maturity"
+    }
+}

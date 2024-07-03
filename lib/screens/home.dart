@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'tablePage.dart'; // Adjust the import to match your project's structure
+import 'tablePage.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   DateTime? _endDate;
   double? _baseTemp;
 
-  final List<String> _crops = ['Rice', 'Wheat', 'Maize', 'Cotton'];
+  final List<String> _crops = ['Rice', 'Wheat', 'Maize', 'Cotton', 'Mustard'];
   final TextEditingController _baseTempController = TextEditingController();
   final TextEditingController _startDateController = TextEditingController();
   final TextEditingController _endDateController = TextEditingController();
