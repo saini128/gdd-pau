@@ -24,7 +24,7 @@ class TablePage extends StatefulWidget {
 class _TablePageState extends State<TablePage> {
   List<DataRow> _dataRows = [];
   int _currentPage = 0;
-  static const int _rowsPerPage = 10;
+  static const int _rowsPerPage = 15;
   List<Map<String, dynamic>>? _maxTemperatureData;
   List<Map<String, dynamic>>? _minTemperatureData;
   Map<String, dynamic>? _cropStages;
@@ -107,7 +107,7 @@ class _TablePageState extends State<TablePage> {
       }
       cumulativeGDD += dailyGDD;
 
-      String currentStage = 'Sowing';
+      String currentStage = '';
       if (_cropStages!.containsKey(widget.crop)) {
         Map<String, dynamic> stages = _cropStages![widget.crop];
         List<double> stageKeys =
@@ -123,18 +123,18 @@ class _TablePageState extends State<TablePage> {
       }
 
       rows.add(DataRow(cells: [
-        DataCell(Text(sNo.toString(), style: TextStyle(fontSize: 15))),
+        DataCell(Text(sNo.toString(), style: TextStyle(fontSize: 12))),
         DataCell(Text(
             '${currentDate.day}-${currentDate.month}-${currentDate.year}',
-            style: TextStyle(fontSize: 15))),
+            style: TextStyle(fontSize: 12))),
         DataCell(Text(
             '${minTemp.toStringAsFixed(1)}/${maxTemp.toStringAsFixed(1)}',
-            style: TextStyle(fontSize: 15))),
+            style: TextStyle(fontSize: 12))),
         DataCell(
-            Text(dailyGDD.toStringAsFixed(1), style: TextStyle(fontSize: 15))),
+            Text(dailyGDD.toStringAsFixed(1), style: TextStyle(fontSize: 12))),
         DataCell(Text(cumulativeGDD.toStringAsFixed(1),
-            style: TextStyle(fontSize: 15))),
-        DataCell(Text(currentStage, style: TextStyle(fontSize: 15))),
+            style: TextStyle(fontSize: 12))),
+        DataCell(Text(currentStage, style: TextStyle(fontSize: 12))),
       ]));
 
       sNo++;
@@ -180,43 +180,43 @@ class _TablePageState extends State<TablePage> {
             child: SingleChildScrollView(
               child: DataTable(
                 columnSpacing: 10.0,
-                headingRowHeight: 30.0,
+                headingRowHeight: 40.0,
                 dataRowHeight: 30.0,
                 columns: const [
                   DataColumn(
                     label: Text(
                       'S.No',
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   DataColumn(
                     label: Text(
                       'Date',
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   DataColumn(
                     label: Text(
                       'Temp (°C)',
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Daily GDD',
-                      style: TextStyle(fontSize: 15),
+                      'Daily\nGDD',
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Cumulative GDD',
-                      style: TextStyle(fontSize: 15),
+                      'Cumulative\nGDD',
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Current Stage',
-                      style: TextStyle(fontSize: 15),
+                      'Current\nStage',
+                      style: TextStyle(fontSize: 12),
                     ),
                   ),
                 ],

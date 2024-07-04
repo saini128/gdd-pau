@@ -162,7 +162,6 @@ class _HomeState extends State<Home> {
                       ),
                     );
                   } else {
-                    // Show error message if any field is not filled
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Please fill all fields'),
